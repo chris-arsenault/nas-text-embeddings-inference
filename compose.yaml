@@ -12,7 +12,7 @@ services:
       - "192.168.66.3:5361:80"
     environment:
       MODEL_ID: "${TEI_MODEL_ID:-nomic-ai/nomic-embed-text-v1.5}"
-      REVISION: "${TEI_REVISION:-main}"
+      REVISION: "${TEI_REVISION:-e5cf08aadaa33385f5990def41f7a23405aec398}"
       PORT: "${TEI_PORT:-80}"
       HUGGINGFACE_HUB_CACHE: "${TEI_MODEL_CACHE:-/data}"
       MAX_CLIENT_BATCH_SIZE: "${TEI_MAX_CLIENT_BATCH_SIZE:-32}"

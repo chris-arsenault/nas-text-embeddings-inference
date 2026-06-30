@@ -20,6 +20,16 @@ The deployed model is:
 nomic-ai/nomic-embed-text-v1.5
 ```
 
+The model revision is pinned to:
+
+```text
+e5cf08aadaa33385f5990def41f7a23405aec398
+```
+
+This avoids tracking `main`, whose current config includes both
+`max_position_embeddings` and `n_positions`; TEI treats those as the same field
+and rejects the config.
+
 The model cache is stored on the TrueNAS host at:
 
 ```text
