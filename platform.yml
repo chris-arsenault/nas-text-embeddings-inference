@@ -1,0 +1,9 @@
+project: nas-text-embeddings-inference
+prefix: nas-text-embeddings-inference
+stack:
+  - vendor
+truenas: true
+truenas_images: false
+truenas_compose_path: compose.yaml
+truenas_compose_check_paths:
+  - compose.yaml

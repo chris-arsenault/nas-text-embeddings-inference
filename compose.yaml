@@ -1,0 +1,31 @@
+services:
+  text-embeddings-inference:
+    image: ghcr.io/huggingface/text-embeddings-inference:cpu-1.9
+    container_name: nas-text-embeddings-inference
+    init: true
+    restart: unless-stopped
+    stop_grace_period: 30s
+    security_opt:
+      - no-new-privileges:true
+    cpus: "8"
+    ports:
+      - "192.168.66.3:5361:80"
+    environment:
+      MODEL_ID: "${TEI_MODEL_ID:-nomic-ai/nomic-embed-text-v1.5}"
+      REVISION: "${TEI_REVISION:-main}"
+      PORT: "${TEI_PORT:-80}"
+      HUGGINGFACE_HUB_CACHE: "${TEI_MODEL_CACHE:-/data}"
+      MAX_CLIENT_BATCH_SIZE: "${TEI_MAX_CLIENT_BATCH_SIZE:-32}"
+      POOLING: "mean"
+      AUTO_TRUNCATE: "true"
+      TOKENIZATION_WORKERS: "${TEI_TOKENIZATION_WORKERS:-8}"
+      OMP_NUM_THREADS: "${TEI_OMP_NUM_THREADS:-8}"
+      RAYON_NUM_THREADS: "${TEI_RAYON_NUM_THREADS:-8}"
+    volumes:
+      - /mnt/apps/apps/nas-text-embeddings-inference/model-cache:/data
+    healthcheck:
+      test: ["CMD-SHELL", "curl -fsS http://127.0.0.1:80/health >/dev/null"]
+      interval: 15s
+      timeout: 5s
+      retries: 20
+      start_period: 180s
